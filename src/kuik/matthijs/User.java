@@ -1,5 +1,8 @@
 package kuik.matthijs;
 
+import jdk.nashorn.api.scripting.JSObject;
+import org.json.JSONObject;
+
 /**
  * Created by Matthijs Kuik on 4-12-2015.
  */
@@ -19,6 +22,19 @@ public class User {
     User( final String name, final int id ) {
         this.name = name;
         this.id = id;
+    }
+
+    User(final JSONObject json ) {
+        this( json.getString("NAME"), json.getInt("ID") );
+    }
+
+    JSONObject toJSON() {
+        JSONObject json = new JSONObject();
+        json.put("NAME", name);
+        json.put("ID", id);
+        json.put("EDIT", edit_rights);
+        json.put("ADMIN", admin_rights);
+        return json;
     }
 
     public int getID() {
